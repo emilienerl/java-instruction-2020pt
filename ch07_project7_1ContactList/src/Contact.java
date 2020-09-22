@@ -8,10 +8,21 @@ public class Contact {
 
 	// constructors
 	public Contact() {
-		firstName = "";
-		lastName = "";
-		email = "";
-		phone = "";
+		this("", "", "", "");
+		// this constructor takes the four strings below
+
+//	public Contact() 
+//		firstName = "";
+//		lastName = "";
+//		email = "";
+//		phone = "";
+	}
+
+	public Contact(String firstName, String lastName, String email, String phone) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phone = phone;
 	}
 
 	// getters and setters
@@ -54,8 +65,8 @@ public class Contact {
 	public String displayContact() {
 		String retVal = "--------------------------------------------\n"
 				+ "---- Current Contact -----------------------\n" + "--------------------------------------------\n"
-				+ "Name:               " + this.firstName + " " + this.lastName + "\n" + "Email Address:          "
-				+ this.email + "\n" + "Phone Number:           " + this.phone + "\n"
+				+ "Name:              " + this.firstName + " " + this.lastName + "\n" + "Email Address:     "
+				+ this.email + "\n" + "Phone Number:      " + this.phone + "\n"
 				+ "----------------------------------------------";
 		return retVal;
 	}
