@@ -12,7 +12,7 @@ public final class CustomerTextFile implements DAO<Customer> {
 
 	public CustomerTextFile() throws IOException {
 		// initialize the class variables
-		customersPath = Paths.get("customer.txt");
+		customersPath = Paths.get("customer.text");
 		customersFile = customersPath.toFile();
 		getAll();
 	}
@@ -28,6 +28,15 @@ public final class CustomerTextFile implements DAO<Customer> {
 
 		// load the array list with Customer objects created from
 		// the data in the file
+
+		try (BufferReader in = new BufferReader(new FileReader(customerFile))) {
+			String line = in.readLine();
+
+			while (line != null) {
+				String[] fields = line.split(FIELD_SEP);
+
+			}
+		}
 		return customers;
 	}
 
