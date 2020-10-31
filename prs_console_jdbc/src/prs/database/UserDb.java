@@ -124,4 +124,45 @@ public class UserDb {
 			return false;
 		}
 	}
+
+	/**
+	 * Authenticates a User
+	 *
+	 * @param userName The user's userName
+	 * @param password The user's password
+	 * @returns The matching User or null if no matching User found
+	 */
+
+	public User authenticateUser(String userName, String password) {
+		String selectByUserAndPass = "SELECT * FROM user WHERE UserName = ? AND Password = ?";
+
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(selectByUserAndPass);) {
+			ps.setString(1, userName);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int id = rs.getInt("ID");
+				String userNameFromDB = rs.getString("UserName");
+				String passwordFromDB = rs.getString("password");
+				String firstName = rs.getString("FirstName");
+				String lastName = rs.getString("LastName");
+				String phoneNumber = rs.getString("PhoneNumber");
+				String email = rs.getString("email");
+				boolean isReviewer = rs.getBoolean("isReviewer");
+				boolean isAdmin = rs.getBoolean("isAdmin");
+
+				User user = new User(id, userNameFromDB, passwordFromDB, firstName, lastName, phoneNumber, email,
+						isReviewer, isAdmin);
+
+				return user;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new PrsDataException("Error Authenticating user. Msg: " + e.getMessage());
+		}
+
+	}
 }

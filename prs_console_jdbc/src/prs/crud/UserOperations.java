@@ -4,6 +4,7 @@ import java.util.List;
 
 import prs.business.User;
 import prs.database.UserDb;
+import prs.exception.PrsDataException;
 import prs.ui.Console;
 
 public class UserOperations {
@@ -63,6 +64,22 @@ public class UserOperations {
 			System.out.println();
 		} else {
 			System.out.print("something went wrong");
+		}
+	}
+
+	public static User login() {
+		try {
+			String userName = Console.getString("UserName: ");
+			String password = Console.getString("Password: ");
+
+			UserDb userDb = new UserDb();
+			User user = userDb.authenticateUser(userName, password);
+
+			return user;
+
+		} catch (PrsDataException e) {
+			System.err.println("Error logging in. Msg: " + e.getMessage());
+			return null;
 		}
 	}
 }

@@ -31,7 +31,7 @@ public class ProductOperations {
 
 	public static void updateProduct() {
 		ProductDb product = new ProductDb();
-		int productId = Console.getInt("Product IDd to update: ");
+		int productId = Console.getInt("Product ID to update: ");
 		int vendorId = Console.getInt("Vendor ID to update: ");
 		String partNumber = Console.getString("PartNumber to update: ");
 		String name = Console.getString("Name to update: ");
@@ -62,5 +62,11 @@ public class ProductOperations {
 		} else {
 			System.out.print("something went wrong");
 		}
+	}
+
+	public static void getProduct() {
+		ProductDb product = new ProductDb();
+		int productId = Console.getInt("Product ID: ");
+		System.out.println("Product: " + product);
 	}
 }

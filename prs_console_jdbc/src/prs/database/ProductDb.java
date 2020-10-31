@@ -63,6 +63,34 @@ public class ProductDb {
 
 	}
 
+	public Product get(int Id) {
+		String selectOne = "SELECT * FROM product WHERE ID = ?";
+		Product product = null;
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(selectOne);) {
+			ps.setInt(1, Id);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+
+				int id = rs.getInt("ID");
+				int vendorId = rs.getInt("VendorId");
+				String partNumber = rs.getString("PartNumber");
+				String name = rs.getString("Name");
+				double price = rs.getDouble("Price");
+				String unit = rs.getString("Unit");
+				String photoPath = rs.getString("PhotoPath");
+
+				product = new Product(id, vendorId, partNumber, name, price, unit, photoPath);
+
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Caught exception. " + e);
+
+		}
+		return product;
+	}
+
 	public boolean delete(int id) {
 		String productDelete = "DELETE FROM product WHERE ID = ?";
 
